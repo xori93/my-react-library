@@ -1,28 +1,46 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 
-const Book = () => {
+const Book = ({ book }) => {
   return (
     <div className="book">
       <a href="">
         <figure className="book__img--wrapper">
-          <img src="https://m.media-amazon.com/images/I/81ANaVZk5LL._AC_UF1000,1000_QL80_.jpg" alt="" />
+          <img src={book.url} alt="" />
         </figure>
       </a>
       <div className="book__title">
         <a href="/" className="book__title--link">
-          Atomic Habits</a>
+          {book.title}</a>
       </div>
       <div className="book__ratings">
-        <FontAwesomeIcon icon="star" />
-        <FontAwesomeIcon icon="star" />
-        <FontAwesomeIcon icon="star" />
-        <FontAwesomeIcon icon="star" />
-        <FontAwesomeIcon icon="star-half-alt" />
+        {
+          // create a new array
+          // use the .fill() method to fill the array 
+          // map through the array
+          new Array(Math.floor(book.rating)).fill(0).map((_, index) => <FontAwesomeIcon icon="star" key={index} />) 
+        }
+        {
+          !Number.isInteger(book.rating) && <FontAwesomeIcon icon="star-half-alt" />
+        }
       </div>
       <div className="book__price">
-        <span className="book__price--normal">$15.00</span>
-        $10.00
+        {
+          // check if book salePrice exist
+          book.salePrice ? (
+            <>
+            {/* If there is a sale, then show the original price and the sale price */}
+            {/* tofixed() adds 2 decimal place */}
+              <span className="book__price--normal">${book.originalPrice.toFixed(2)}</span>
+              {book.salePrice.toFixed(2)}
+            </>
+          ) : (
+            <>
+            {/* If there is no sale. show the original price */}
+            ${book.originalPrice.toFixed(2)}
+            </>
+          )}
+
       </div>
     </div>
   )
