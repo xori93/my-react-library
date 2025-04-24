@@ -1,30 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Rating from './Rating';
 
 const Book = ({ book }) => {
   return (
     <div className="book">
-      <Link to="">
+      <Link to="/books/1">
         <figure className="book__img--wrapper">
           <img src={book.url} alt="" />
         </figure>
       </Link>
       <div className="book__title">
-        <Link to="/" className="book__title--link">
+        <Link to="/books/1" className="book__title--link">
           {book.title}</Link>
       </div>
-      <div className="book__ratings">
-        {
-          // create a new array
-          // use the .fill() method to fill the array 
-          // map through the array
-          new Array(Math.floor(book.rating)).fill(0).map((_, index) => <FontAwesomeIcon icon="star" key={index} />) 
-        }
-        {
-          !Number.isInteger(book.rating) && <FontAwesomeIcon icon="star-half-alt" />
-        }
-      </div>
+      <Rating rating={book.rating} />
       <div className="book__price">
         {
           // check if book salePrice exist
